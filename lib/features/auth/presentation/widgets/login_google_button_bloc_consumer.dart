@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/features/auth/functions/show_awesome_dialog.dart';
 import 'package:note_app/features/auth/presentation/widgets/custsom_sochial_auth_button.dart';
 import 'package:note_app/features/auth/states_manager/login_google/login_google_cubit.dart';
-import 'package:note_app/features/home/data/presentation/views/home_veiw.dart';
+import 'package:note_app/features/home/presentation/views/notes_categorys_view.dart';
 
 class LoginGoogleButtonBlocConsumer extends StatelessWidget {
   const LoginGoogleButtonBlocConsumer({super.key});
@@ -14,7 +14,7 @@ class LoginGoogleButtonBlocConsumer extends StatelessWidget {
     return BlocConsumer<LoginGoogleCubit, LoginGoogleState>(
       listener: (context, state) {
         if (state is LoginGoogleSuccess) {
-          Navigator.pushReplacementNamed(context, HomeView.id);
+          Navigator.pushReplacementNamed(context, NotesCategoriesView.id);
         }
         if (state is LoginGoogleFailure) {
           showAwesomeDialog(

@@ -5,7 +5,9 @@ import 'package:note_app/features/auth/presentation/views/register_view.dart';
 import 'package:note_app/features/auth/states_manager/login/login_cubit.dart';
 import 'package:note_app/features/auth/states_manager/login_google/login_google_cubit.dart';
 import 'package:note_app/features/auth/states_manager/register/register_cubit.dart';
-import 'package:note_app/features/home/data/presentation/views/home_veiw.dart';
+import 'package:note_app/features/home/presentation/views/add_category_view.dart';
+import 'package:note_app/features/home/presentation/views/add_notes_view.dart';
+import 'package:note_app/features/home/presentation/views/notes_categorys_view.dart';
 
 import '../../features/auth/states_manager/resset_password/resset_password_cubit.dart';
 
@@ -21,6 +23,8 @@ abstract class AppRoutes {
           create: (context) => RegisterCubit(),
           child: const RegisterView(),
         ),
-    HomeView.id: (context) => const HomeView()
+    NotesCategoriesView.id: (context) => const NotesCategoriesView(),
+    AddCategoryView.id: (context) => const AddCategoryView(),
+    AddNotesView.id: (context) => const AddNotesView(),
   };
 }

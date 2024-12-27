@@ -23,7 +23,7 @@ class CustomTextFormFiled extends StatelessWidget {
       },
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.grey[200],
+        fillColor: Colors.grey[300],
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         hintText: hint,

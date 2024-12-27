@@ -5,7 +5,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:note_app/features/auth/functions/show_awesome_dialog.dart';
 import 'package:note_app/features/auth/presentation/widgets/login_view_body.dart';
 import 'package:note_app/features/auth/states_manager/login/login_cubit.dart';
-import 'package:note_app/features/home/data/presentation/views/home_veiw.dart';
+import 'package:note_app/features/home/presentation/views/notes_categorys_view.dart';
 
 class LoginViewBodyBlocConsumer extends StatelessWidget {
   const LoginViewBodyBlocConsumer({
@@ -18,7 +18,7 @@ class LoginViewBodyBlocConsumer extends StatelessWidget {
       listener: (context, state) {
         if (state is LoginSuccess) {
           state.emailVerified
-              ? Navigator.pushReplacementNamed(context, HomeView.id)
+              ? Navigator.pushReplacementNamed(context, NotesCategoriesView.id)
               : showAwesomeDialog(
                   context: context,
                   dialogType: DialogType.error,
