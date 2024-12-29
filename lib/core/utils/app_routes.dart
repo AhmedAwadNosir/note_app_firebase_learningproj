@@ -25,6 +25,5 @@ abstract class AppRoutes {
         ),
     NotesCategoriesView.id: (context) => const NotesCategoriesView(),
     AddCategoryView.id: (context) => const AddCategoryView(),
-    AddNotesView.id: (context) => const AddNotesView(),
   };
 }

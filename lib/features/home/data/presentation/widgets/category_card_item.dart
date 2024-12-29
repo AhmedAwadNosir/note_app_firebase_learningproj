@@ -16,7 +16,7 @@ class CategoryItemCard extends StatelessWidget {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return NotesView(categoryId: categoryModal.categoryId);
+            return NotesView(categoryId: categoryModal.userId);
           },
         ));
       },

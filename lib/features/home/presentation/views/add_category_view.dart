@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/features/home/presentation/widgets/add_category_view_body.dart';
+import 'package:note_app/features/home/presentation/widgets/add_category_view_Body_bloc_consumer.dart';
 
 class AddCategoryView extends StatelessWidget {
   const AddCategoryView({super.key});
@@ -10,7 +10,7 @@ class AddCategoryView extends StatelessWidget {
       appBar: AppBar(
         title: const Text("AddCategory"),
       ),
-      body: const AddCategoryViewBody(),
+      body: const AddNoteCategoryViewBodyBlocConsumer(),
     );
   }
 }

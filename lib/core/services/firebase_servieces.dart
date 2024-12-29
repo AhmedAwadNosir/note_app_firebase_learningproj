@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-abstract class FirebaseServieces {
+class FirebaseServieces {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 // this Methods it firebase options for cloction
 ////////////////////////////////////////////////

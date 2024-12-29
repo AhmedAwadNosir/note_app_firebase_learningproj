@@ -11,7 +11,9 @@ class NotesView extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Notes"),
       ),
-      body: const NotesViewBody(),
+      body: NotesViewBody(
+        categoryDocId: categoryId,
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, AddCategoryView.id);

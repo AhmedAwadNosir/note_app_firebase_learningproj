@@ -1,7 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:note_app/core/utils/app_images.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/features/auth/functions/show_awesome_dialog.dart';
 import 'package:note_app/features/home/data/models/category_modal.dart';
 import 'package:note_app/features/home/presentation/views/notes_view.dart';
+import 'package:note_app/features/home/presentation/widgets/category_card_bloc_listner.dart';
+import 'package:note_app/features/home/states_manager/dellete_note_category/dellete_note-category_cubit.dart';
 
 class CategoryItemCard extends StatelessWidget {
   const CategoryItemCard({
@@ -12,34 +16,30 @@ class CategoryItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onLongPress: () {},
+      onLongPress: () {
+        showAwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          dialogTitle: '',
+          dialogDesc: "do you want to delete this Category",
+          btnOkColor: Colors.red,
+          btnOkName: "Dellete",
+          btnCancelColor: Colors.green,
+          btnOkOnPress: () {
+            BlocProvider.of<DelleteNoteCategoryCubit>(context)
+                .delleteCategory(docId: categoryModal.docId!);
+          },
+          btnCancelOnPress: () {},
+        );
+      },
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return NotesView(categoryId: categoryModal.categoryId);
+            return NotesView(categoryId: categoryModal.docId!);
           },
         ));
       },
-      child: Card(
-        color: Colors.white,
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              Image.asset(
-                AppImages.folderIcon,
-                height: 120,
-                width: 120,
-              ),
-              Text(
-                categoryModal.categoryName,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-        ),
-      ),
+      child: CategroyCardBlocListner(categoryModal: categoryModal),
     );
   }
 }
