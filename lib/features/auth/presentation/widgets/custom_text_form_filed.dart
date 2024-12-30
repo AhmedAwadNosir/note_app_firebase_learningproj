@@ -7,13 +7,16 @@ class CustomTextFormFiled extends StatelessWidget {
     this.onSaved,
     this.onChanged,
     required this.hint,
+    @required this.initialText,
   });
   final String hint;
   final void Function(String?)? onSaved;
   final void Function(String?)? onChanged;
+  final String? initialText;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialText,
       onSaved: onSaved,
       onChanged: onChanged,
       validator: (value) {

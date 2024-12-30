@@ -7,6 +7,7 @@ import 'package:note_app/features/auth/presentation/views/login_view.dart';
 import 'package:note_app/features/home/presentation/views/notes_categorys_view.dart';
 import 'package:note_app/features/home/states_manager/add_note/add_note_cubit.dart';
 import 'package:note_app/features/home/states_manager/dellete_note/dellete_note_cubit.dart';
+import 'package:note_app/features/home/states_manager/edit_note/edit_note_cubit.dart';
 import 'package:note_app/features/home/states_manager/fetch_notes/fetch_notes_cubit.dart';
 import 'package:note_app/firebase_options.dart';
 import 'features/home/states_manager/add_note_category/add_note_category_cubit.dart';
@@ -46,6 +47,9 @@ class NotesApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DelleteNoteCubit(),
+        ),
+        BlocProvider(
+          create: (context) => EditNoteCubit(),
         ),
       ],
       child: MaterialApp(

@@ -162,10 +162,10 @@ class FirebaseServieces {
 // update Doc with it DocId
   Future<void> updateSubColectDoc({
     required String colecName,
-    required Map<String, dynamic> data,
     required String docId,
     required String subColecName,
     required String subColecdocId,
+    required Map<String, dynamic> data,
   }) async {
     await _firestore
         .collection(colecName)
@@ -188,5 +188,100 @@ class FirebaseServieces {
         .collection(subColecName)
         .doc(subColecdocId)
         .delete();
+  }
+
+//----------------------------------------------------------------------------
+//Explain some points in firebase with Examples
+//----------------------------------------------------------------------------
+//1-firebase(filtiring):firestorInstance.path.where(field(String),codtion).get()
+/////////////////////////////////////////////////////////////////////////////////
+//condtion
+//isEqualto:10 ==10
+//isNotEqualTo:10 !=10
+//isGraterthan:10 >10
+//isGreaterThanOrEqualTo:10 >=10
+//isLessThan :10 <10
+//isLessThanOrEqualTo :10 <=10
+//whereIn [10,20,30] : contain value in this arry
+//whereNotIn [10,20,30] :contain any values not in this array
+//arrayContains[10,20]  field is arry contains this values all
+//arrayContainsAny[10,20,30] field is arry contains any of this arry value
+//====================================================
+//notice that the value must be of the same type of field
+//////////////////////////////////////////////////////////
+  Future<QuerySnapshot> getSubColectionDocsWhereFiledConddtionValue({
+    required String colecName,
+    required String docId,
+    required String subColecName,
+    required String filed,
+    required String value,
+  }) async {
+    QuerySnapshot snapshot = await _firestore
+        .collection(colecName)
+        .doc(docId)
+        .collection(subColecName)
+        .where(filed, isGreaterThan: 10)
+        .get();
+    return snapshot;
+  }
+//---------------------------------------------------
+//2-firebase(orderBy) firestoreInsance.path.orderBy("field",decinding:false).condtion([value of condtion]).limit[1].get() // retun on result
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//decinding  by dedfult false from lower to higher if it true it reverse condtion like this form > to <
+//condtion
+//startAt([10]) value>=10
+//startAfter([10]) value>10
+//end([10]) value <=10
+//endBefore([10]) value<10
+
+  Future<QuerySnapshot> getSubColectionDocsOrderByCondtionandLimitRuslt({
+    required String colecName,
+    required String docId,
+    required String subColecName,
+    required String filed,
+    required String value,
+  }) async {
+    QuerySnapshot snapshot = await _firestore
+        .collection(colecName)
+        .doc(docId)
+        .collection(subColecName)
+        .orderBy('note', descending: false)
+        .startAt([10]).get();
+    return snapshot;
+  }
+
+//////////////////////////////////////////////////////////////////////////////
+//3-transaction in finantial apps when you want to update falue
+// you must reed last value and update this value this made by transaction
+//transaction(ReedLastData then writ New Data)
+//---------------------------------------------------------------------------
+// this is only example
+  Future<void> updateSubColectDocByTransaction({
+    required String colecName,
+    required String docId,
+    required String subColecName,
+    required String subColecdocId,
+    required Map<String, dynamic> data,
+  }) async {
+    //1- define the path of the doc that be updated
+    DocumentReference docPath = _firestore
+        .collection(colecName)
+        .doc(docId)
+        .collection(subColecName)
+        .doc(subColecdocId);
+    //2-create transaction(read then Write)
+    _firestore.runTransaction(
+      (transaction) async {
+        //1-read last data
+        DocumentSnapshot snapshot = await docPath.get();
+        if (snapshot.exists) {
+          var lastData = snapshot.data();
+          if (lastData is Map<String, dynamic>) {
+            int mony = lastData["mony"] + 100; //updateValue
+            transaction.update(docPath, {"mony": mony}); //write
+          }
+        }
+      },
+    );
   }
 }

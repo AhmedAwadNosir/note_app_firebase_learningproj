@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/features/auth/functions/show_awesome_dialog.dart';
 import 'package:note_app/features/home/data/models/note_modal.dart';
+import 'package:note_app/features/home/presentation/views/edit_note_view.dart';
 import 'package:note_app/features/home/states_manager/dellete_note/dellete_note_cubit.dart';
 import 'package:note_app/features/home/states_manager/fetch_notes/fetch_notes_cubit.dart';
 
@@ -33,58 +34,70 @@ class CustomNoteCardBlocListner extends StatelessWidget {
               .fetchNotes(parendDocId: categoryDocId);
         }
       },
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: Colors.orange,
-          borderRadius: BorderRadius.circular(14),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        noteModal.note,
-                        style:
-                            const TextStyle(fontSize: 26, color: Colors.white),
-                      ),
-                    ],
-                  ),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EditNotesView(
+                  categoryId: categoryDocId,
+                  note: noteModal,
                 ),
-                const SizedBox(width: 20),
-                GestureDetector(
-                    onTap: () {
-                      showAwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.error,
-                        dialogTitle: '',
-                        dialogDesc: "do you want to delete this Category",
-                        btnOkColor: Colors.red,
-                        btnOkName: "Dellete",
-                        btnCancelColor: Colors.green,
-                        btnOkOnPress: () {
-                          BlocProvider.of<DelleteNoteCubit>(context)
-                              .delleteNote(
-                                  docId: noteModal.docId!,
-                                  parendDocId: categoryDocId);
-                        },
-                        btnCancelOnPress: () {},
-                      );
-                    },
-                    child: const Icon(
-                      Icons.delete,
-                      color: Colors.black,
-                      size: 35,
-                    ))
-              ],
-            ),
-          ],
+              ));
+        },
+        child: Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.orange,
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          noteModal.note,
+                          style: const TextStyle(
+                              fontSize: 22, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                      onTap: () {
+                        showAwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.error,
+                          dialogTitle: '',
+                          dialogDesc: "do you want to delete this Category",
+                          btnOkColor: Colors.red,
+                          btnOkName: "Dellete",
+                          btnCancelColor: Colors.green,
+                          btnOkOnPress: () {
+                            BlocProvider.of<DelleteNoteCubit>(context)
+                                .delleteNote(
+                                    docId: noteModal.docId!,
+                                    parendDocId: categoryDocId);
+                          },
+                          btnCancelOnPress: () {},
+                        );
+                      },
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.black,
+                        size: 35,
+                      ))
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
